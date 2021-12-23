@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-kLeftBottomGap = 120
+kLeftBottomGap = 50
 kLeftTopGap = 600
 kTopGap = 200
 resolution = [1280, 720]
