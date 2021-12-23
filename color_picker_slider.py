@@ -32,8 +32,6 @@ def displayLiveImage(screenImage, imgToAdd, text, boxHeight, boxWidth, topX, top
     screenImage  = cv2.putText(screenImage, text  , (topX+10,topY+int(boxHeight-10)), cv2.FONT_HERSHEY_SIMPLEX, .5, fontColor, 1)
 
 
-
-
 if __name__ == "__main__":
     barsWindow = 'Bars'
     hl = 'H Low'
@@ -45,28 +43,8 @@ if __name__ == "__main__":
     szL = 'Sz Lower'
     szH = 'Sz Higher'
 
-    focdist = 55
-    brightness = 140
-    contrast = 38
-    sat = 144
-
-    # cap = cv2.VideoCapture("assets/f2_moving camera.mp4")
-    # image = None
-
-    # while(True):
-    #     ret, frame = cap.read()
-    #     lineImage, image_perspective = changePerspective(frame)
-    #     cv2.imshow('lineImage', lineImage)
-    #     cv2.imshow('image_perspective', image_perspective)
-
-    #     if cv2.waitKey(0) & 0xFF == ord('q'):
-    #         image = image_perspective
-    #         break
-
-    # cap.release()
-    # cv2.destroyAllWindows()
-
-    # frame = image
+    canvasImage = np.array([[[255, 255, 255]]*1000]*1000, dtype=np.uint8)
+    cv2.imwrite('canvasImage.png', canvasImage)
 
     # create window for the slidebars
     cv2.namedWindow(barsWindow, flags = cv2.WINDOW_GUI_EXPANDED)
@@ -105,12 +83,16 @@ if __name__ == "__main__":
         cap = cv2.VideoCapture("assets/f2_moving camera.mp4")
         while(True):
             ret, frame = cap.read()
+
+            frame = cv2.medianBlur(frame, 9)
             lineImage, frame = changePerspective(frame)
+            cv2.imshow('frame', frame)
             cv2.imshow('lineImage', lineImage)
-            # cv2.imshow('image_perspective', image_perspective)
+
+            frame = frame[int(frame.shape[0]/2):, :]
+            frame = cv2.pyrUp(frame)
             
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
             # read trackbar positions for all
             hul = cv2.getTrackbarPos(hl, barsWindow)
             huh = cv2.getTrackbarPos(hh, barsWindow)
@@ -154,7 +136,7 @@ if __name__ == "__main__":
             cv2.imshow('contours found', marked)
 
             #build live canvas ===========================
-            screenImage = np.zeros([1000, 1000, 3], dtype=np.uint8)
+            screenImage = cv2.imread('canvasImage.png',1)
             boxHeight = 210
             boxWidth  = 220
             topX = 30
