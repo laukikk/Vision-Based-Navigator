@@ -1,9 +1,13 @@
 import cv2
-import numpy as np
-import matplotlib.pyplot as plt
+import os
+from gtts import gTTS
+
 from functions import *
 
 cap = cv2.VideoCapture("assets/f2_moving camera.mp4")
+
+sayCommand = 0
+commandDelay = 30
   
 while(True):
     ret, frame = cap.read()
@@ -32,17 +36,32 @@ while(True):
     marked, contours = getContours(image, colour_thresh)
     cv2.imshow('marked', centerLines(marked))
 
-    if leftContours:
-        print(f'Left: {leftContours}')
-        if rightContours:
-            print(f'Right: {rightContours}')
-            print('------ STOP\n')
-        else: 
-            print('-------- GO RIGHT\n')
-    elif rightContours:
-        print('-------- GO LEFT\n')
+    print(f'Command : {sayCommand}')
 
-    if cv2.waitKey(0) & 0xFF == ord('q'):
+    if not sayCommand:
+        if leftContours:
+            if rightContours:
+                sayCommand = commandDelay
+                print('STOP')
+                output = gTTS(text = "Stop")
+                output.save("output.mp3") 
+                os.system("start output.mp3")
+            else:
+                print('Go Right')
+                sayCommand = commandDelay
+                output = gTTS(text = "Go Right")
+                output.save("output.mp3") 
+                os.system("start output.mp3")
+        elif rightContours:
+            print('Go Left')
+            sayCommand = commandDelay
+            output = gTTS(text = "Go Left")
+            output.save("output.mp3") 
+            os.system("start output.mp3")
+    else:
+        sayCommand -= 1
+
+    if cv2.waitKey(10) & 0xFF == ord('q'):
         break
     
   
