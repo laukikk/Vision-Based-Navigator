@@ -4,13 +4,15 @@ from gtts import gTTS
 
 from functions import *
 
-cap = cv2.VideoCapture("assets/f2_moving camera.mp4")
+cap = cv2.VideoCapture("assets/footpath-clip-2.mp4")
 
 sayCommand = 0
-commandDelay = 30
+commandDelay = 50
   
 while(True):
     ret, frame = cap.read()
+    # frame = cv2.imread('assets/tiles.jpeg')
+    frame = cv2.resize(frame, (1280, 720))
      
     lineImage, image_perspective = changePerspective(frame)
     cv2.imshow('lineImage', lineImage)
@@ -20,8 +22,8 @@ while(True):
     cv2.imshow('colour_thresh', centerLines(colour_thresh))
     cv2.imshow('image', centerLines(image))
 
-    x1 = int(image.shape[1]/4)
-    x2 = int(image.shape[1]*3/4)
+    x1 = int(image.shape[1]*3/8)
+    x2 = int(image.shape[1]*5/8)
     mid = int(image.shape[1]/2)
     leftImage = image[:, x1:mid]
     leftThresh = colour_thresh[:, x1:mid]
@@ -61,7 +63,7 @@ while(True):
     else:
         sayCommand -= 1
 
-    if cv2.waitKey(10) & 0xFF == ord('q'):
+    if cv2.waitKey(0) & 0xFF == ord('q'):
         break
     
   

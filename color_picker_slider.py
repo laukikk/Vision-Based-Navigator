@@ -80,9 +80,10 @@ if __name__ == "__main__":
         colorUpper = np.array([colFilter[3],colFilter[4],colFilter[5]])    # 124
 
 
-        cap = cv2.VideoCapture("assets/f2_moving camera.mp4")
+        cap = cv2.VideoCapture("assets/footpath-clip-2.mp4")
         while(True):
             ret, frame = cap.read()
+            frame = cv2.resize(frame, (1280, 720))
 
             frame = cv2.medianBlur(frame, 9)
             lineImage, frame = changePerspective(frame)
@@ -168,7 +169,7 @@ if __name__ == "__main__":
         
             cv2.imshow('RESULT', screenImage)
 
-            if cv2.waitKey(0) & 0xFF == ord('q'):
+            if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
         
         cap.release()

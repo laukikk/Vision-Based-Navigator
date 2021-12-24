@@ -6,7 +6,7 @@ def getCoords(event,x,y,flags,param):
         cv2.circle(img,(x,y),3,(255,255,255),-1)
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture("assets/f2_moving camera.mp4")
+    cap = cv2.VideoCapture("assets/footpath-clip-2.mp4")
     img = None
 
     while(True):

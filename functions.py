@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 kLeftBottomGap = 100
-kLeftTopGap = 600
+kLeftTopGap = 610
 kTopGap = 200
 resolution = [1280, 720]
 outputSize = [300, 600]
@@ -57,7 +57,7 @@ def colourThresholdingHSV(image):
     image = cv2.pyrUp(image)
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-    huL = 0
+    huL = 30
     huH = 179
     saL = 35
     saH = 255
@@ -77,6 +77,8 @@ def getContours(image, maskedFrame):
     sizeH = 450**2
     objColor = (0,0,255)
     marked = image.copy()
+    ratio = 8
+    start_dist = 1.5
     
     # Count the contours on masked frame
     cv2.imwrite("masked.png", maskedFrame)
@@ -92,9 +94,12 @@ def getContours(image, maskedFrame):
         x,y,w,h = cv2.boundingRect(cnt)
         area = cv2.contourArea(cnt)
         if sizeL < area < sizeH:
+            distance = ratio - (y+h)*ratio/image.shape[0] + start_dist
+            distance = "{:.2f}".format(distance)
             rangeCount = rangeCount + 1
             cv2.drawContours(marked, [cnt], -1, objColor, 3)
             marked = cv2.rectangle(marked, (x, y), (x+w, y+h), (255,255,255), 2)
+            marked = cv2.putText(marked, str(distance), (x+w, y+h), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
 
     return marked, rangeCount
 
