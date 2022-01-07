@@ -4,7 +4,7 @@ from gtts import gTTS
 
 from functions import *
 
-cap = cv2.VideoCapture("assets/footpath-clip-2.mp4")
+cap = cv2.VideoCapture("assets/footpath-clip-1.mp4")
 
 sayCommand = 0
 commandDelay = 50

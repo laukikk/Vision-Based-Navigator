@@ -169,7 +169,7 @@ if __name__ == "__main__":
         
             cv2.imshow('RESULT', screenImage)
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            if cv2.waitKey(0) & 0xFF == ord('q'):
                 break
         
         cap.release()

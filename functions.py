@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-kLeftBottomGap = 100
-kLeftTopGap = 610
+kLeftBottomGap = 120
+kLeftTopGap = 600
 kTopGap = 200
 resolution = [1280, 720]
 outputSize = [300, 600]
@@ -81,11 +81,9 @@ def getContours(image, maskedFrame):
     start_dist = 1.5
     
     # Count the contours on masked frame
-    cv2.imwrite("masked.png", maskedFrame)
-    masked1 = cv2.imread("masked.png",1)
     kernel = np.ones((5,5),np.uint8)
-    masked2 = cv2.dilate(masked1     , kernel, iterations = 1)
-    masked  = cv2.cvtColor(masked2,      cv2.COLOR_BGR2GRAY)
+    masked2 = cv2.dilate(maskedFrame, kernel, iterations = 1)
+    masked  = cv2.cvtColor(masked2, cv2.COLOR_BGR2GRAY)
     Contours, hierarchy = cv2.findContours(masked, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     rangeCount = 0
 
@@ -110,8 +108,8 @@ def getCoords(event,x,y,flags,img):
         cv2.circle(img,(x,y),3,(255,0,0),-1)
 
 def centerLines(image):
-    image = cv2.rectangle(image, (0, int(image.shape[0]/2)), (image.shape[1], int(image.shape[0]/2)), (0,0,0), 2)
-    image = cv2.rectangle(image, (int(image.shape[1]/2), 0), (int(image.shape[1]/2), image.shape[0]), (0,0,0), 2)
+    # image = cv2.rectangle(image, (0, int(image.shape[0]/2)), (image.shape[1], int(image.shape[0]/2)), (0,0,0), 2)
+    # image = cv2.rectangle(image, (int(image.shape[1]/2), 0), (int(image.shape[1]/2), image.shape[0]), (0,0,0), 2)
     return image
 
 
