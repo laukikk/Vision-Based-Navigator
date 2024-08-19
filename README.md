@@ -1,6 +1,7 @@
-# Vision-Based Mobility and Navigation Aid for the Visually Challenged People 
-With the help of Computer Vision and APIs, the application would work as a naviagation tool 
-with real-time object detection to help the visually impaired reach their desired location.
+# Vision-Based Mobility and Navigation Aid for the Visually Challenged People
+*[Paper Link](https://pubs.aip.org/aip/acp/article-abstract/2851/1/030007/2921920/Vision-based-mobility-and-navigation-aid-for-the?redirectedFrom=fulltext)*
+
+The project aims to assist visually impaired individuals with navigation by providing real-time obstacle avoidance and route guidance. The system takes a voice command to set the user's desired destination, then identifies and guides the user along a complete route, notifying them when a turn is needed. Simultaneously, it executes an obstacle avoidance model that alerts the user when an obstacle is nearby. The system is designed to operate in real-time, with controlled delays between voice commands to prevent overwhelming the user, resulting in an improved navigation and obstacle avoidance experience.
 
 <hr>
 
@@ -102,5 +103,3 @@ with real-time object detection to help the visually impaired reach their desire
 
 <br>
 <hr>
-
-*This project is part of the paper that was presented at the NSHM MINDS 2022 International Conference on Machine Intelligence and Network Data Security*
